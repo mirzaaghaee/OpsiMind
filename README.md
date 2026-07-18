@@ -1,10 +1,12 @@
 
-# OpsiMind Architecture Repository
+
 <p align="center">
   <img src="/assets/logo/opsimindlogo.png"
-       width="280"
+       width="100%"
        alt="Opsimind Logo">
 </p>
+
+# OpsiMind Architecture Repository
 
 Generated: 2026-07-17
 
