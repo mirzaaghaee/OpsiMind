@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="assets/logo/opsimindlogo.png" width="100%" alt="Opsimind Logo">
+  <img src="assets/logo/opsimind-logo" width="100%" alt="Opsimind Logo">
 </p>
 
 <h1 align="center">Opsimind</h1>

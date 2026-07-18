@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420">
+<defs><radialGradient id="g"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#19C6D1"/></radialGradient></defs>
+<g transform="translate(20,20)">
+<circle cx="150" cy="190" r="120" fill="none" stroke="#06153A" stroke-width="24" stroke-dasharray="335 65" transform="rotate(-90 150 190)"/>
+<circle cx="150" cy="190" r="50" fill="url(#g)" opacity="0.9"/>
+<circle cx="150" cy="190" r="24" fill="#06153A"/>
+</g>
+<text x="340" y="210" font-family="Inter,Arial,sans-serif" font-size="150" font-weight="500" fill="#06153A">Opsimind</text>
+<text x="340" y="305" font-family="Inter,Arial,sans-serif" font-size="26" letter-spacing="4" fill="#06153A">OBSERVE • UNDERSTAND • PREDICT • REASON • OPTIMIZE • AUTOMATE</text>
+</svg>
