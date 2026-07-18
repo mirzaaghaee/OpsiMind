@@ -4,7 +4,9 @@
 <p align="center">
   <img src="assets/logo/opsimind-logo.svg" width="100%" alt="Opsimind Logo">
 </p>
-
+<p align="center">
+  <img src="assets/logo/opsimind-icon-concept-v0.1.svg" width="160" alt="Opsimind Logo">
+</p>
 <h1 align="center">Opsimind</h1>
 
 <p align="center">
