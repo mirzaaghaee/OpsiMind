@@ -1,0 +1,292 @@
+---
+
+# 11. Domain Invariants
+
+The Integration domain shall always satisfy the following architectural
+invariants.
+
+## 11.1 Single Responsibility
+
+Integration is responsible only for introducing trusted operational
+information into the cognitive architecture.
+
+It shall never perform:
+
+- Observation
+- Correlation
+- Root Cause Analysis
+- Prediction
+- Decision Making
+- Learning
+
+These responsibilities belong to downstream domains.
+
+---
+
+## 11.2 Immutable Publication
+
+Once a Signal has been published it becomes immutable.
+
+Corrections shall generate a new Signal rather than modifying the previous
+publication.
+
+This guarantees:
+
+- Traceability
+- Auditability
+- Explainability
+
+throughout the cognitive lifecycle.
+
+---
+
+## 11.3 Technology Independence
+
+Integration responsibilities are independent of:
+
+- OpenTelemetry
+- Prometheus
+- Datadog
+- Splunk
+- Elastic
+- Dynatrace
+- CloudWatch
+- Azure Monitor
+- Grafana
+- Kafka
+- RabbitMQ
+
+These are implementation technologies rather than architectural concepts.
+
+---
+
+## 11.4 Canonical Representation
+
+Every published Signal shall conform to the canonical information model.
+
+Vendor-specific formats shall not propagate beyond the Integration domain.
+
+---
+
+## 11.5 Trusted Inputs
+
+Only validated information may enter the cognitive architecture.
+
+Information failing validation shall be rejected, quarantined, or marked
+invalid according to runtime policy.
+
+---
+
+# 12. Quality Attributes
+
+The Integration domain emphasizes the following quality attributes.
+
+## Accuracy
+
+Signals shall faithfully represent external operational information.
+
+---
+
+## Freshness
+
+Signals should be published with minimal delay after acquisition.
+
+---
+
+## Reliability
+
+Temporary failures in external systems shall not compromise architectural
+integrity.
+
+---
+
+## Scalability
+
+Integration shall support thousands of heterogeneous operational resources.
+
+---
+
+## Extensibility
+
+New source types should be added through adapters or plugins without changing
+architectural responsibilities.
+
+---
+
+## Traceability
+
+Every Signal should be traceable to:
+
+- Original source
+- Acquisition time
+- Resource
+- Collection mechanism
+- Validation outcome
+
+---
+
+# 13. Domain Interactions
+
+The Integration domain interacts with only two architectural boundaries.
+
+## Upstream
+
+External operational environment.
+
+Examples:
+
+- Kubernetes
+- Linux
+- Windows
+- AWS
+- Azure
+- GCP
+- VMware
+- Databases
+- Applications
+- Network Devices
+
+---
+
+## Downstream
+
+Observe Domain
+
+Integration publishes Signals.
+
+Observe consumes Signals.
+
+No other architectural dependency exists.
+
+```
+External Systems
+        │
+        ▼
++------------------+
+|   Integration    |
++------------------+
+        │
+        ▼
++------------------+
+|     Observe      |
++------------------+
+```
+
+---
+
+# 14. Architectural Rationale
+
+Separating Integration from Observe is one of the most important architectural
+decisions within OpsiMind.
+
+Many monitoring platforms combine collection and interpretation into a single
+component.
+
+OpsiMind deliberately separates them.
+
+This provides several benefits.
+
+## Separation of Facts from Interpretation
+
+Integration publishes facts.
+
+Observe interprets facts.
+
+Keeping these concerns separate prevents semantic leakage between domains.
+
+---
+
+## Vendor Independence
+
+Operational sources continuously evolve.
+
+By introducing canonical Signals, downstream domains remain insulated from
+vendor-specific schemas and protocols.
+
+---
+
+## Replaceable Integrations
+
+New technologies can be supported by implementing additional acquisition
+adapters without changing the cognitive architecture.
+
+---
+
+## Consistent Cognitive Pipeline
+
+Every cognitive process begins from the same trusted information model,
+regardless of the original operational environment.
+
+---
+
+# 15. Future Evolution
+
+Future versions of Integration may introduce capabilities such as:
+
+- Autonomous source discovery
+- Adaptive sampling
+- Intelligent filtering
+- Edge collection
+- Distributed acquisition
+- Plugin marketplace
+- Federated ingestion
+- Data quality scoring
+
+These enhancements extend implementation capabilities without changing the
+architectural responsibilities defined in this chapter.
+
+---
+
+# 16. Mermaid Diagram
+
+```mermaid
+flowchart LR
+
+A[External Environment]
+--> B[Resource Discovery]
+
+B --> C[Information Acquisition]
+
+C --> D[Validation]
+
+D --> E[Normalization]
+
+E --> F[Enrichment]
+
+F --> G[Canonical Signal]
+
+G --> H[Observe Domain]
+```
+
+---
+
+# 17. References
+
+This chapter should be read together with:
+
+- OCAS-03 — Canonical Cognitive Architecture
+- OCAS-04 — Cognitive Processing Model
+- OCAS-05 — Cognitive Information Model
+- OCAS-07 — Observe
+
+---
+
+# 18. Summary
+
+The Integration domain is the trusted gateway into the OpsiMind Cognitive
+Architecture.
+
+Its responsibility is not to understand operational information but to ensure
+that all information entering the cognitive system is:
+
+- Valid
+- Trusted
+- Canonical
+- Vendor-independent
+- Traceable
+- Immutable
+
+By separating acquisition from interpretation, the architecture establishes a
+clean boundary between the operational environment and the cognitive
+processing pipeline, enabling long-term evolution, implementation
+independence, and explainable operational intelligence.

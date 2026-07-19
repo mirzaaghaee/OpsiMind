@@ -7,6 +7,7 @@ This directory contains all project documentation, including the product vision,
 - vision/
 - product/
 - prd/
+- ocas
 - olas/
 - architecture/
 - adr/
