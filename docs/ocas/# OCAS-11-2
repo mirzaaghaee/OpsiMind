@@ -1,0 +1,357 @@
+---
+
+# 11. Domain Invariants
+
+The Execute domain shall always satisfy the following architectural
+invariants.
+
+## 11.1 Every Execution Shall Reference a Decision
+
+Every Execution shall reference exactly one approved Decision.
+
+Execution shall never originate independently of the Decide domain.
+
+```
+Decision
+    │
+    ▼
+Execution
+```
+
+This preserves traceability from operational action back to cognitive intent.
+
+---
+
+## 11.2 Execution Shall Not Modify Decisions
+
+Execute realizes Decisions.
+
+It shall never:
+
+- create Decisions
+- modify Decisions
+- replace Decisions
+- reinterpret Decisions
+
+Decision ownership remains exclusively within the Decide domain.
+
+---
+
+## 11.3 Policy Validation Is Mandatory
+
+Before execution begins, all mandatory execution constraints shall be
+validated.
+
+Examples include:
+
+- Required approvals
+- Maintenance windows
+- Environmental restrictions
+- Security policies
+- Resource availability
+
+Execution shall not proceed if mandatory constraints are not satisfied.
+
+---
+
+## 11.4 Execution Shall Be Observable
+
+Every significant execution event shall be recorded.
+
+Examples include:
+
+- Start
+- Completion
+- Retry
+- Rollback
+- Failure
+- Cancellation
+- Timeout
+
+Execution shall never occur as an opaque process.
+
+---
+
+## 11.5 Failure Shall Be Explicit
+
+Execution failures shall be represented as first-class outcomes.
+
+Failures shall never be silently ignored or hidden.
+
+Execution records shall clearly identify:
+
+- Failure type
+- Failure location
+- Recovery attempts
+- Final outcome
+
+---
+
+# 12. Quality Attributes
+
+The Execute domain emphasizes the following quality attributes.
+
+## Reliability
+
+Execution shall behave predictably under normal and failure conditions.
+
+---
+
+## Safety
+
+Execution shall respect governance policies and avoid unauthorized changes.
+
+---
+
+## Traceability
+
+Every action shall be traceable to the originating Decision.
+
+---
+
+## Observability
+
+Execution progress and results shall remain visible throughout the execution
+lifecycle.
+
+---
+
+## Recoverability
+
+The architecture shall support retries, rollbacks, and compensating actions
+when appropriate.
+
+---
+
+## Scalability
+
+The execution engine shall coordinate large numbers of concurrent operational
+actions across distributed environments.
+
+---
+
+# 13. Domain Interactions
+
+The Execute domain communicates only with adjacent cognitive domains and the
+Integration domain for external interactions.
+
+## Upstream
+
+Consumes:
+
+- Decision
+- Candidate Action (reference)
+- Decision Rationale (reference)
+
+Published by:
+
+- Decide
+
+---
+
+## Downstream
+
+Publishes:
+
+- Execution
+- Execution Result
+- Execution Log
+
+Consumed by:
+
+- Evaluate
+
+---
+
+## External Interaction
+
+Execute performs operational actions through capabilities exposed by the
+Integration domain.
+
+```
+                +------------------+
+                |      Decide      |
+                +------------------+
+                         │
+                         ▼
+                    Decision
+                         │
+                         ▼
+                +------------------+
+                |     Execute      |
+                +------------------+
+                    │          │
+                    │          ▼
+                    │   Execution Result
+                    │
+                    ▼
+             Integration Domain
+                    │
+                    ▼
+          External Operational Systems
+                    │
+                    ▼
+                +------------------+
+                |     Evaluate     |
+                +------------------+
+```
+
+Execute does not communicate directly with vendor-specific systems. It relies
+on Integration to provide standardized operational capabilities.
+
+---
+
+# 14. Architectural Rationale
+
+Separating **Execution** from **Evaluation** ensures that performing an
+action and judging its effectiveness remain distinct responsibilities.
+
+Many automation platforms stop once an action has completed successfully.
+OpsiMind treats successful execution and successful outcomes as different
+concepts.
+
+## Execution Is Not Success
+
+An action may execute correctly while failing to achieve its intended goal.
+
+Example:
+
+- Deployment rollback completed successfully.
+- Customer-facing latency remains elevated.
+
+Execution succeeded.
+
+Operational objective did not.
+
+Evaluation determines whether the objective was achieved.
+
+---
+
+## Controlled Interaction with the External World
+
+External environments are inherently unpredictable.
+
+The Execute domain encapsulates:
+
+- orchestration
+- retries
+- compensation
+- rollback
+- timeout handling
+- coordination
+
+This isolates operational uncertainty from the cognitive domains.
+
+---
+
+## Integration as the Operational Boundary
+
+Execute does not implement vendor-specific APIs.
+
+Instead, it invokes standardized capabilities exposed by the Integration
+domain.
+
+This preserves:
+
+- portability
+- extensibility
+- implementation independence
+
+---
+
+## Complete Operational Traceability
+
+Every operational change can be traced through the cognitive pipeline:
+
+```
+Knowledge
+      ↓
+Reason
+      ↓
+Decision
+      ↓
+Execution
+```
+
+This enables governance, auditing, compliance, and post-incident analysis.
+
+---
+
+# 15. Future Evolution
+
+Future implementations of the Execute domain may introduce:
+
+- Distributed workflow engines
+- Event-driven execution orchestration
+- Adaptive retry strategies
+- Intelligent rollback planning
+- Progressive delivery orchestration
+- Cross-cloud execution
+- Agent-assisted workflow execution
+- Autonomous remediation pipelines
+
+These capabilities enhance execution sophistication while preserving the
+architectural responsibility of the Execute domain.
+
+---
+
+# 16. Mermaid Diagram
+
+```mermaid
+flowchart LR
+
+A[Decision]
+ --> B[Execution Planning]
+
+B --> C[Policy Enforcement]
+
+C --> D[Connector Orchestration]
+
+D --> E[Workflow Coordination]
+
+E --> F[Execution Monitoring]
+
+F --> G[Failure Handling]
+
+G --> H[Execution Recording]
+
+H --> I[Execution]
+
+H --> J[Execution Result]
+
+H --> K[Execution Log]
+
+I --> L[Evaluate]
+J --> L
+K --> L
+```
+
+---
+
+# 17. References
+
+This chapter should be read together with:
+
+- OCAS-04 — Cognitive Processing Model
+- OCAS-05 — Cognitive Information Model
+- OCAS-06 — Integration
+- OCAS-10 — Decide
+- OCAS-12 — Evaluate
+
+---
+
+# 18. Summary
+
+The Execute domain is the operational realization engine of OpsiMind.
+
+Its responsibility is to transform approved Decisions into safe, governed,
+observable operational actions while preserving complete execution
+traceability.
+
+By separating **decision making**, **execution**, and **evaluation**, the
+architecture ensures that actions are not only performed correctly but can
+also be assessed independently for effectiveness.
+
+Execution answers the question **"Was the action carried out?"**. Determining
+whether that action achieved the intended operational objective is the
+responsibility of the Evaluate domain.

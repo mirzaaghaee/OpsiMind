@@ -1,0 +1,314 @@
+# OCAS-09 — Domain 03: Reason
+
+| Property | Value |
+|----------|-------|
+| Document | OCAS-09 |
+| Domain | Reason |
+| Version | 1.0 |
+| Status | Draft |
+| Parent | OpsiMind Cognitive Architecture Specification |
+
+---
+
+# 1. Purpose
+
+The **Reason** domain transforms persistent operational **Knowledge** into
+contextual understanding.
+
+While the Remember domain answers:
+
+> **"What do we know?"**
+
+the Reason domain answers:
+
+> **"Why is this happening, and what does it mean?"**
+
+Reason is responsible for interpreting operational knowledge, constructing
+context, evaluating evidence, generating hypotheses, and producing
+explainable operational understanding.
+
+Reason does **not** make decisions.
+
+Its responsibility ends when contextual understanding has been established.
+
+---
+
+# 2. Mission
+
+The mission of the Reason domain is:
+
+> **Transform operational knowledge into explainable operational context through
+evidence-driven reasoning.**
+
+Reason provides understanding rather than action.
+
+Its outputs become the primary inputs to the Decide domain.
+
+---
+
+# 3. Cognitive Question
+
+The Reason domain continuously answers:
+
+> **Why is this happening?**
+
+and
+
+> **What does it mean?**
+
+Examples include:
+
+- API latency increased because Database A became saturated.
+- Pod restarts are correlated with recent deployments.
+- Multiple alerts originate from a single infrastructure failure.
+- Service degradation affects payment processing.
+- Increased CPU usage is expected because of scheduled batch processing.
+
+Reason focuses on interpretation, not recommendation.
+
+---
+
+# 4. Responsibilities
+
+The Reason domain owns the following architectural responsibilities.
+
+## 4.1 Operational Context Construction
+
+Construct a coherent representation of the current operational state.
+
+Operational Context combines:
+
+- Knowledge
+- Behavioral Models
+- Operational Entities
+- Recent Observations
+- Historical Knowledge
+
+into a unified understanding.
+
+---
+
+## 4.2 Hypothesis Generation
+
+Generate candidate explanations for observed operational behavior.
+
+Examples:
+
+- Infrastructure failure
+- Resource exhaustion
+- Network partition
+- Configuration drift
+- Software regression
+- External dependency failure
+
+Hypotheses are potential explanations—not facts.
+
+---
+
+## 4.3 Evidence Evaluation
+
+Evaluate available evidence supporting each hypothesis.
+
+Evidence may include:
+
+- Observations
+- Historical Knowledge
+- Behavioral Models
+- Topology
+- Dependencies
+- Previous incidents
+- Learning Artifacts
+
+Reason shall explicitly associate evidence with every hypothesis.
+
+---
+
+## 4.4 Causal Analysis
+
+Determine relationships between operational events.
+
+Examples:
+
+- Dependency chains
+- Failure propagation
+- Cascading failures
+- Root contributing factors
+- Shared infrastructure
+
+Reason produces causal understanding rather than simple event correlation.
+
+---
+
+## 4.5 Explanation Generation
+
+Produce human-readable operational explanations.
+
+Examples:
+
+> Payment failures originate from database connection exhaustion.
+
+> Increased API latency is consistent with resource contention introduced
+during the latest deployment.
+
+Every explanation shall reference supporting evidence.
+
+---
+
+## 4.6 Confidence Assessment
+
+Assign confidence to generated explanations.
+
+Confidence may be derived from:
+
+- Evidence quality
+- Historical consistency
+- Behavioral similarity
+- Knowledge completeness
+- Model certainty
+
+Confidence supports downstream decision making but does not replace human
+judgment.
+
+---
+
+## 4.7 Publication
+
+Publish canonical Reason outputs.
+
+Published information becomes immutable and serves as input to the Decide
+domain.
+
+---
+
+# 5. Inputs
+
+The Reason domain consumes:
+
+| Input | Source |
+|--------|--------|
+| Knowledge | Remember |
+| Operational Entity | Remember |
+| Behavioral Model | Remember |
+| Observation (optional contextual input) | Observe |
+
+Reason does not consume raw Signals.
+
+It reasons only over interpreted operational knowledge.
+
+---
+
+# 6. Outputs
+
+Reason publishes the following canonical information objects.
+
+| Information Object | Owner |
+|--------------------|-------|
+| Operational Context | Reason |
+| Explanation | Reason |
+| Hypothesis | Reason |
+
+These objects collectively describe the interpreted operational state.
+
+---
+
+# 7. Canonical Information Objects
+
+## Operational Context
+
+Operational Context represents the current understanding of the operational
+environment.
+
+Context combines multiple sources of knowledge into a coherent picture of the
+system state.
+
+---
+
+## Hypothesis
+
+A Hypothesis represents a candidate explanation for observed behavior.
+
+Hypotheses may later be:
+
+- Supported
+- Rejected
+- Refined
+
+A Hypothesis is not itself Knowledge.
+
+---
+
+## Explanation
+
+An Explanation describes why Reason believes a particular operational state
+exists.
+
+Every Explanation shall reference:
+
+- Evidence
+- Supporting Knowledge
+- Confidence
+- Related Hypotheses
+
+---
+
+# 8. Internal Capability Map
+
+```
+                    +----------------------+
+                    |       Reason         |
+                    +----------------------+
+                               |
+        +----------------------+----------------------+
+        |                      |                      |
+ Operational Context     Hypothesis           Evidence
+ Construction            Generation          Evaluation
+        |                      |                      |
+        +----------------------+----------------------+
+                               |
+                      Causal Analysis
+                               |
+                      Explanation Generation
+                               |
+                      Confidence Assessment
+                               |
+                         Publication
+                               |
+      Operational Context / Explanation / Hypothesis
+```
+
+---
+
+# 9. Information Ownership
+
+Reason is the sole owner of:
+
+- Operational Context
+- Explanation
+- Hypothesis
+
+Reason consumes Knowledge but never modifies or republishes it.
+
+Knowledge ownership remains exclusively within the Remember domain.
+
+---
+
+# 10. Domain Boundaries
+
+## Reason Owns
+
+- Context construction
+- Hypothesis generation
+- Evidence evaluation
+- Causal analysis
+- Explanation generation
+- Confidence assessment
+- Publication
+
+## Reason Does NOT Own
+
+- Knowledge creation
+- Knowledge persistence
+- Decision making
+- Action recommendation
+- Execution
+- Learning

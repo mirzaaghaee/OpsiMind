@@ -1,0 +1,266 @@
+---
+
+# 11. Domain Invariants
+
+The Observe domain shall always satisfy the following architectural invariants.
+
+## 11.1 Observation Before Understanding
+
+Observe is responsible for identifying **what happened**, not **why it
+happened**.
+
+No causal analysis, hypothesis generation, or recommendation shall occur
+within this domain.
+
+---
+
+## 11.2 Evidence-Based Observations
+
+Every Observation shall be supported by one or more canonical Signals.
+
+Observations shall never be created without traceable evidence.
+
+```
+Signal(s)
+     │
+     ▼
+Observation
+```
+
+This guarantees explainability throughout the cognitive lifecycle.
+
+---
+
+## 11.3 Immutable Publication
+
+Once an Observation has been published, it becomes immutable.
+
+Corrections or refinements shall result in the creation of a new Observation
+rather than modification of the original.
+
+This preserves:
+
+- Historical accuracy
+- Auditability
+- Deterministic reasoning
+
+---
+
+## 11.4 Canonical Representation
+
+Every Observation shall conform to the Cognitive Information Model.
+
+Observations are implementation-independent and shall not expose vendor-specific
+semantics.
+
+---
+
+## 11.5 Separation from Knowledge
+
+Observe identifies operational events.
+
+Remember determines whether those events become persistent knowledge.
+
+This separation prevents transient operational events from automatically
+becoming organizational knowledge.
+
+---
+
+# 12. Quality Attributes
+
+The Observe domain emphasizes the following quality attributes.
+
+## Accuracy
+
+Observations shall faithfully represent operational reality.
+
+---
+
+## Consistency
+
+Equivalent Signals shall produce equivalent Observations.
+
+---
+
+## Timeliness
+
+Observations should be published with minimal delay after Signals are received.
+
+---
+
+## Explainability
+
+Every Observation shall be traceable to the supporting Signal(s).
+
+---
+
+## Reliability
+
+Temporary acquisition inconsistencies shall not compromise the integrity of
+published Observations.
+
+---
+
+## Scalability
+
+The Observe domain shall support high-volume event processing while preserving
+deterministic behavior.
+
+---
+
+# 13. Domain Interactions
+
+The Observe domain communicates only with adjacent cognitive domains.
+
+## Upstream
+
+**Integration**
+
+Consumes:
+
+- Signal
+
+---
+
+## Downstream
+
+**Remember**
+
+Publishes:
+
+- Observation
+
+```
++------------------+
+|   Integration    |
++------------------+
+         │
+         ▼
+      Signal
+         │
+         ▼
++------------------+
+|     Observe      |
++------------------+
+         │
+         ▼
+   Observation
+         │
+         ▼
++------------------+
+|    Remember      |
++------------------+
+```
+
+Observe has no direct dependency on Reason, Decide, Execute, Evaluate, or Learn.
+
+---
+
+# 14. Architectural Rationale
+
+Separating **Observation** from **Knowledge** is a deliberate architectural
+decision.
+
+Many operational systems immediately treat detected events as knowledge.
+
+OpsiMind distinguishes between the two.
+
+## Events Are Temporary
+
+An event may be important, irrelevant, duplicated, or misleading.
+
+Observe records that an event occurred without judging its long-term
+significance.
+
+---
+
+## Knowledge Requires Persistence
+
+Persistent operational knowledge is created only after observations are
+evaluated and organized by the Remember domain.
+
+This distinction reduces noise and supports long-term learning.
+
+---
+
+## Explainability
+
+By preserving a dedicated Observation stage, every piece of operational
+knowledge can be traced back to observable evidence.
+
+This enables transparent reasoning and auditable recommendations.
+
+---
+
+## Loose Coupling
+
+Reasoning algorithms may evolve without changing how observations are created.
+
+Likewise, observation mechanisms may evolve independently of downstream
+cognitive processes.
+
+---
+
+# 15. Future Evolution
+
+Future implementations of the Observe domain may introduce capabilities such as:
+
+- Adaptive observation rules
+- Dynamic event classification
+- Noise suppression
+- Intelligent deduplication
+- Confidence scoring
+- Streaming observation pipelines
+- Edge observation processing
+- Multi-source observation fusion
+
+These enhancements extend implementation capabilities without changing the
+architectural responsibility of the Observe domain.
+
+---
+
+# 16. Mermaid Diagram
+
+```mermaid
+flowchart LR
+
+A[Canonical Signal]
+    --> B[Signal Interpretation]
+
+B --> C[Observation Creation]
+
+C --> D[Validation]
+
+D --> E[Observation Enrichment]
+
+E --> F[Canonical Observation]
+
+F --> G[Remember Domain]
+```
+
+---
+
+# 17. References
+
+This chapter should be read together with:
+
+- OCAS-03 — Canonical Cognitive Architecture
+- OCAS-04 — Cognitive Processing Model
+- OCAS-05 — Cognitive Information Model
+- OCAS-06 — Integration
+- OCAS-08 — Remember
+
+---
+
+# 18. Summary
+
+The Observe domain is the first cognitive stage that introduces semantic
+meaning into the OpsiMind architecture.
+
+Its responsibility is to transform trusted operational Signals into trusted
+Observations that describe **what happened**, while deliberately avoiding any
+attempt to explain **why** it happened.
+
+By separating observation from knowledge creation, the architecture preserves
+clarity of responsibility, supports explainability, and establishes a stable
+foundation for reasoning, decision making, and continuous learning.

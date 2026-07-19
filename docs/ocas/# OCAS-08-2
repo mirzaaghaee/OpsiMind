@@ -1,0 +1,335 @@
+---
+
+# 11. Domain Invariants
+
+The Remember domain shall always satisfy the following architectural
+invariants.
+
+## 11.1 Knowledge Must Be Evidence-Based
+
+Every Knowledge object shall reference one or more supporting Observations.
+
+Knowledge shall never be created from assumptions, speculation, or model
+output alone.
+
+```
+Observation(s)
+        │
+        ▼
+   Knowledge
+```
+
+This guarantees that every piece of operational knowledge remains
+explainable.
+
+---
+
+## 11.2 Knowledge Is Persistent
+
+Knowledge represents durable operational understanding.
+
+Unlike Observations, Knowledge is expected to survive individual operational
+events.
+
+Knowledge remains available until it is explicitly superseded, retired, or
+archived.
+
+---
+
+## 11.3 Knowledge Is Versioned
+
+Knowledge shall evolve through versioning.
+
+Example:
+
+```
+Knowledge v1
+      │
+Learning
+      │
+Knowledge v2
+```
+
+Historical versions shall remain available for auditability and reasoning.
+
+Knowledge shall never be overwritten in place.
+
+---
+
+## 11.4 Operational Entities Are Stable
+
+Operational Entities represent long-lived architectural concepts.
+
+Examples include:
+
+- Services
+- Databases
+- APIs
+- Queues
+- Clusters
+- Business Capabilities
+
+Transient operational events shall never create or destroy entities without
+explicit lifecycle management.
+
+---
+
+## 11.5 Separation Between Knowledge and Reasoning
+
+Remember stores operational knowledge.
+
+Reason interprets operational knowledge.
+
+Remember shall never:
+
+- infer causes
+- generate hypotheses
+- prioritize explanations
+- produce recommendations
+
+Similarly, Reason shall never become the owner of Knowledge.
+
+This separation is fundamental to the cognitive architecture.
+
+---
+
+# 12. Quality Attributes
+
+The Remember domain emphasizes the following quality attributes.
+
+## Consistency
+
+Knowledge shall present a consistent representation of operational reality.
+
+---
+
+## Explainability
+
+Every Knowledge object shall be traceable to its supporting evidence.
+
+---
+
+## Durability
+
+Knowledge shall survive process restarts, deployments, and implementation
+changes.
+
+---
+
+## Evolvability
+
+Knowledge shall evolve through controlled refinement rather than destructive
+updates.
+
+---
+
+## Integrity
+
+Relationships between entities, knowledge, and evidence shall remain
+internally consistent.
+
+---
+
+## Scalability
+
+The architecture shall support millions of operational entities and knowledge
+objects without changing cognitive responsibilities.
+
+---
+
+# 13. Domain Interactions
+
+The Remember domain interacts only with adjacent cognitive domains.
+
+## Upstream
+
+Consumes:
+
+- Observation (Observe)
+- Learning Artifact (Learn)
+
+---
+
+## Downstream
+
+Publishes:
+
+- Knowledge
+- Operational Entity
+- Behavioral Model
+
+Consumed by:
+
+- Reason
+
+```
++------------------+
+|     Observe      |
++------------------+
+         │
+         ▼
+    Observation
+         │
+         ▼
++------------------+
+|    Remember      |
++------------------+
+         │
+         ├──────────────► Knowledge
+         ├──────────────► Operational Entity
+         └──────────────► Behavioral Model
+                              │
+                              ▼
+                     +------------------+
+                     |      Reason      |
+                     +------------------+
+
+Learning Artifact
+        ▲
+        │
++------------------+
+|      Learn       |
++------------------+
+```
+
+Remember has no direct dependency on Decide, Execute, or Evaluate.
+
+---
+
+# 14. Architectural Rationale
+
+Separating **Remember** from **Reason** is one of the defining architectural
+decisions of OpsiMind.
+
+Many AI systems combine storage, reasoning, and inference into a single
+component. OpsiMind intentionally separates these concerns.
+
+## Knowledge Is Not Reasoning
+
+Knowledge describes **what is known**.
+
+Reasoning determines **what that knowledge means in a particular context**.
+
+Keeping these responsibilities separate enables reasoning engines to evolve
+without changing the underlying knowledge base.
+
+---
+
+## Long-Term Operational Memory
+
+Traditional observability platforms retain telemetry.
+
+OpsiMind retains operational understanding.
+
+As operational experience accumulates, the platform develops an increasingly
+rich operational memory that supports explainable reasoning and better
+decisions.
+
+---
+
+## Replaceable Reasoning Technologies
+
+Reasoning implementations may change over time:
+
+- Rule engines
+- Graph reasoning
+- Machine learning
+- LLMs
+- Multi-agent systems
+
+Because Knowledge is owned independently, these technologies can be replaced
+without redefining operational memory.
+
+---
+
+## Foundation for Learning
+
+Learning refines Knowledge rather than replacing it.
+
+This enables continuous improvement while preserving historical context and
+auditability.
+
+---
+
+# 15. Future Evolution
+
+Future implementations of the Remember domain may introduce:
+
+- Knowledge graphs
+- Semantic ontologies
+- Vector-based knowledge retrieval
+- Knowledge confidence scoring
+- Automated relationship discovery
+- Federated knowledge repositories
+- Cross-tenant knowledge isolation
+- Domain-specific operational ontologies
+
+These enhancements extend implementation capabilities while preserving the
+architectural responsibilities defined in this chapter.
+
+---
+
+# 16. Mermaid Diagram
+
+```mermaid
+flowchart LR
+
+A[Observation]
+    --> B[Operational Entity Management]
+
+B --> C[Knowledge Creation]
+
+C --> D[Evidence Management]
+
+D --> E[Behavioral Modeling]
+
+E --> F[Knowledge Lifecycle]
+
+F --> G[Knowledge Publication]
+
+G --> H[Knowledge]
+
+G --> I[Operational Entity]
+
+G --> J[Behavioral Model]
+
+H --> K[Reason]
+I --> K
+J --> K
+
+L[Learning Artifact]
+    --> F
+```
+
+---
+
+# 17. References
+
+This chapter should be read together with:
+
+- OCAS-03 — Canonical Cognitive Architecture
+- OCAS-04 — Cognitive Processing Model
+- OCAS-05 — Cognitive Information Model
+- OCAS-07 — Observe
+- OCAS-09 — Reason
+- OCAS-13 — Learn
+
+---
+
+# 18. Summary
+
+The Remember domain is the **operational memory** of OpsiMind.
+
+Its responsibility is to transform trusted Observations into durable,
+versioned, evidence-backed Knowledge that can be used by downstream cognitive
+domains.
+
+By separating **knowledge ownership** from **reasoning**, the architecture
+establishes a stable foundation for explainable AI, replaceable reasoning
+engines, and continuous organizational learning.
+
+Knowledge is treated as a long-lived enterprise asset rather than a transient
+artifact of runtime analysis.
+
+This distinction is one of the key architectural characteristics that
+differentiates OpsiMind from traditional observability and AIOps platforms.

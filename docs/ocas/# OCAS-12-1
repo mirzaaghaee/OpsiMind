@@ -1,0 +1,299 @@
+# OCAS-12 — Domain 06: Evaluate
+
+| Property | Value |
+|----------|-------|
+| Document | OCAS-12 |
+| Domain | Evaluate |
+| Version | 1.0 |
+| Status | Draft |
+| Parent | OpsiMind Cognitive Architecture Specification |
+
+---
+
+# 1. Purpose
+
+The **Evaluate** domain determines whether executed operational actions
+achieved their intended objectives.
+
+While the Execute domain answers:
+
+> **"Was the action carried out?"**
+
+the Evaluate domain answers:
+
+> **"Did the action produce the desired outcome?"**
+
+Evaluation compares expected outcomes with observed operational reality,
+identifies deviations, measures effectiveness, and produces feedback for
+continuous improvement.
+
+Evaluate does not perform new actions.
+
+Its responsibility is to assess completed actions objectively.
+
+---
+
+# 2. Mission
+
+The mission of the Evaluate domain is:
+
+> **Assess the effectiveness of executed operational actions through objective,
+evidence-based comparison of intended and actual outcomes.**
+
+Evaluation transforms execution history into operational insight.
+
+---
+
+# 3. Cognitive Question
+
+The Evaluate domain continuously answers:
+
+> **"Did we accomplish what we intended?"**
+
+Examples include:
+
+- Service availability returned to normal.
+- Latency remained unchanged after scaling.
+- Rollback restored application stability.
+- Error rate decreased but remained above target.
+- Recovery took longer than expected.
+- Automation completed successfully but violated the recovery objective.
+- Human intervention improved overall outcome.
+- The selected remediation had no measurable effect.
+
+Evaluation focuses on outcomes rather than execution correctness.
+
+---
+
+# 4. Responsibilities
+
+The Evaluate domain owns the following architectural responsibilities.
+
+## 4.1 Outcome Assessment
+
+Compare expected operational objectives with actual results.
+
+Assessment considers:
+
+- Decision intent
+- Execution Result
+- Current operational state
+- Post-execution observations
+
+Outcome assessment determines whether objectives were achieved.
+
+---
+
+## 4.2 Success Measurement
+
+Measure the effectiveness of completed actions.
+
+Examples include:
+
+- Recovery success
+- Availability improvement
+- Latency reduction
+- Error reduction
+- Cost impact
+- Resource efficiency
+- Customer experience improvement
+
+Success may be partial rather than binary.
+
+---
+
+## 4.3 Deviation Analysis
+
+Identify differences between expected and observed outcomes.
+
+Examples include:
+
+- Objective achieved later than expected
+- Recovery incomplete
+- Unexpected side effects
+- New operational issues introduced
+- Business objectives unmet
+
+Deviation analysis supports future learning.
+
+---
+
+## 4.4 Impact Assessment
+
+Determine the operational consequences of executed actions.
+
+Impact dimensions include:
+
+- Technical impact
+- Business impact
+- Customer impact
+- Financial impact
+- Security impact
+- Compliance impact
+
+Impact assessment extends beyond simple execution status.
+
+---
+
+## 4.5 Feedback Generation
+
+Produce structured feedback describing evaluation results.
+
+Feedback includes:
+
+- Success level
+- Observed deviations
+- Outcome quality
+- Supporting evidence
+- Recommended learning inputs
+
+Feedback becomes an input to the Learn domain.
+
+---
+
+## 4.6 Evaluation Publication
+
+Publish immutable evaluation artifacts.
+
+Published evaluations become part of the operational history of the platform.
+
+---
+
+# 5. Inputs
+
+The Evaluate domain consumes:
+
+| Input | Source |
+|--------|--------|
+| Execution | Execute |
+| Execution Result | Execute |
+| Execution Log | Execute |
+| Decision (reference) | Decide |
+| Operational Context (reference) | Reason |
+
+Evaluation may also consume newly generated Observations to verify the
+post-execution operational state.
+
+---
+
+# 6. Outputs
+
+The Evaluate domain publishes the following canonical information objects.
+
+| Information Object | Owner |
+|--------------------|-------|
+| Evaluation | Evaluate |
+| Outcome Assessment | Evaluate |
+| Feedback | Evaluate |
+
+These objects collectively describe how successful an executed action was.
+
+---
+
+# 7. Canonical Information Objects
+
+## Evaluation
+
+An Evaluation represents the formal assessment of an executed Decision.
+
+Typical attributes include:
+
+- Evaluation identifier
+- Referenced Execution
+- Referenced Decision
+- Overall assessment
+- Success level
+- Confidence
+- Timestamp
+
+---
+
+## Outcome Assessment
+
+Outcome Assessment compares expected objectives with actual operational
+results.
+
+Typical outcomes include:
+
+- Fully achieved
+- Partially achieved
+- Not achieved
+- Inconclusive
+
+Outcome Assessment provides objective measurement independent of execution
+status.
+
+---
+
+## Feedback
+
+Feedback captures structured information intended for continuous improvement.
+
+Typical contents include:
+
+- Observed deviations
+- Success metrics
+- Supporting evidence
+- Lessons identified
+- Recommendations for learning
+
+Feedback does not directly modify knowledge or policies.
+
+---
+
+# 8. Internal Capability Map
+
+```
+                    +----------------------+
+                    |      Evaluate        |
+                    +----------------------+
+                               |
+      +------------------------+------------------------+
+      |                        |                        |
+ Outcome Assessment     Success Measurement   Deviation Analysis
+      |                        |                        |
+      +------------------------+------------------------+
+                               |
+                      Impact Assessment
+                               |
+                      Feedback Generation
+                               |
+                    Evaluation Publication
+                               |
+         Evaluation / Outcome Assessment / Feedback
+```
+
+---
+
+# 9. Information Ownership
+
+Evaluate is the authoritative owner of:
+
+- Evaluation
+- Outcome Assessment
+- Feedback
+
+Evaluation consumes Decisions and Executions but does not modify them.
+
+Ownership of those information objects remains with their originating domains.
+
+---
+
+# 10. Domain Boundaries
+
+## Evaluate Owns
+
+- Outcome assessment
+- Success measurement
+- Deviation analysis
+- Impact assessment
+- Feedback generation
+- Evaluation publication
+
+## Evaluate Does NOT Own
+
+- Decision making
+- Action execution
+- Knowledge creation
+- Organizational learning
+- Operational reasoning

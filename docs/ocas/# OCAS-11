@@ -1,0 +1,351 @@
+# OCAS-11 — Domain 05: Execute
+
+| Property | Value |
+|----------|-------|
+| Document | OCAS-11 |
+| Domain | Execute |
+| Version | 1.0 |
+| Status | Draft |
+| Parent | OpsiMind Cognitive Architecture Specification |
+
+---
+
+# 1. Purpose
+
+The **Execute** domain transforms approved operational **Decisions** into
+controlled interactions with operational environments.
+
+While the Decide domain answers:
+
+> **"What should be done?"**
+
+the Execute domain answers:
+
+> **"How do we safely carry it out?"**
+
+Execute is responsible for orchestrating, coordinating, monitoring, and
+recording operational actions while ensuring they conform to governance,
+security, and execution policies.
+
+Execute does not determine whether an action should occur. It is responsible
+only for carrying out approved intent.
+
+---
+
+# 2. Mission
+
+The mission of the Execute domain is:
+
+> **Perform approved operational actions in a safe, observable, reliable, and
+governed manner while preserving complete execution traceability.**
+
+Execution bridges cognitive intent and operational reality.
+
+---
+
+# 3. Cognitive Question
+
+The Execute domain continuously answers:
+
+> **"How do we perform the selected action safely and correctly?"**
+
+Examples include:
+
+- Restart the affected Kubernetes Deployment.
+- Scale a workload from 5 to 10 replicas.
+- Roll back a failed deployment.
+- Rotate an expired certificate.
+- Create a cloud snapshot.
+- Trigger an automation workflow.
+- Notify an external incident management platform.
+- Pause execution because required approval is missing.
+
+Execution focuses on implementation rather than decision making.
+
+---
+
+# 4. Responsibilities
+
+The Execute domain owns the following architectural responsibilities.
+
+## 4.1 Execution Planning
+
+Transform a Decision into an executable operational plan.
+
+Planning activities may include:
+
+- Target resolution
+- Dependency ordering
+- Sequencing
+- Preconditions
+- Resource validation
+- Execution strategy selection
+
+The execution plan shall remain consistent with the originating Decision.
+
+---
+
+## 4.2 Connector Orchestration
+
+Coordinate execution across operational systems through Integration
+connectors.
+
+Examples include:
+
+- Kubernetes
+- Cloud providers
+- Service meshes
+- CI/CD platforms
+- Monitoring systems
+- ITSM platforms
+- Security platforms
+- Custom enterprise systems
+
+Execute invokes capabilities exposed through Integration rather than
+communicating directly with vendor-specific technologies.
+
+---
+
+## 4.3 Policy Enforcement
+
+Validate execution-time constraints before performing actions.
+
+Examples include:
+
+- Approval status
+- Maintenance windows
+- Security policies
+- Rate limits
+- Resource quotas
+- Change freezes
+- Environmental restrictions
+
+Execution shall not proceed when mandatory constraints are violated.
+
+---
+
+## 4.4 Workflow Coordination
+
+Coordinate multi-step operational procedures.
+
+Examples include:
+
+- Rolling restart
+- Blue/green deployment
+- Canary rollout
+- Multi-region failover
+- Database recovery
+- Incident response workflow
+
+Workflow coordination ensures consistency across complex operations.
+
+---
+
+## 4.5 Execution Monitoring
+
+Observe the progress of running actions.
+
+Monitor:
+
+- Current state
+- Step completion
+- Intermediate failures
+- Timeouts
+- Retries
+- External responses
+
+Execution progress shall remain observable throughout the action lifecycle.
+
+---
+
+## 4.6 Failure Handling
+
+Manage execution failures through controlled recovery mechanisms.
+
+Recovery strategies may include:
+
+- Retry
+- Rollback
+- Compensation
+- Escalation
+- Abort
+- Partial completion reporting
+
+Failure handling is part of execution rather than evaluation.
+
+---
+
+## 4.7 Execution Recording
+
+Record all execution activities.
+
+Execution records shall include:
+
+- Executed actions
+- Timestamps
+- Target systems
+- Operator identity (when applicable)
+- Automation identity
+- Status
+- Results
+- Errors
+
+Execution history supports governance, auditing, and future learning.
+
+---
+
+## 4.8 Publication
+
+Publish immutable execution outcomes.
+
+Execution outcomes become the primary input for the Evaluate domain.
+
+---
+
+# 5. Inputs
+
+The Execute domain consumes:
+
+| Input | Source |
+|--------|--------|
+| Decision | Decide |
+| Candidate Action (optional) | Decide |
+| Decision Rationale (reference) | Decide |
+
+Execution consumes approved Decisions only.
+
+Unapproved Decisions shall not be executed.
+
+---
+
+# 6. Outputs
+
+The Execute domain publishes the following canonical information objects.
+
+| Information Object | Owner |
+|--------------------|-------|
+| Execution | Execute |
+| Execution Result | Execute |
+| Execution Log | Execute |
+
+These objects collectively describe what was performed and what occurred
+during execution.
+
+---
+
+# 7. Canonical Information Objects
+
+## Execution
+
+An Execution represents a concrete realization of a Decision.
+
+Typical attributes include:
+
+- Execution identifier
+- Referenced Decision
+- Target
+- Start time
+- End time
+- Status
+- Actor
+- Execution strategy
+
+---
+
+## Execution Result
+
+Execution Result summarizes the outcome of an Execution.
+
+Possible outcomes include:
+
+- Successful
+- Failed
+- Cancelled
+- Timed Out
+- Partially Successful
+
+Execution Result records what happened without judging whether the outcome
+was desirable.
+
+---
+
+## Execution Log
+
+Execution Logs provide a chronological record of execution events.
+
+Typical entries include:
+
+- Step started
+- Step completed
+- Retry initiated
+- Validation failed
+- Rollback performed
+- External response received
+
+Execution Logs provide operational traceability.
+
+---
+
+# 8. Internal Capability Map
+
+```
+                    +----------------------+
+                    |      Execute         |
+                    +----------------------+
+                               |
+      +------------------------+------------------------+
+      |                        |                        |
+Execution Planning     Connector Orchestration   Policy Enforcement
+      |                        |                        |
+      +------------------------+------------------------+
+                               |
+                     Workflow Coordination
+                               |
+                      Execution Monitoring
+                               |
+                      Failure Handling
+                               |
+                      Execution Recording
+                               |
+                         Publication
+                               |
+        Execution / Execution Result / Execution Log
+```
+
+---
+
+# 9. Information Ownership
+
+Execute is the authoritative owner of:
+
+- Execution
+- Execution Result
+- Execution Log
+
+Execute consumes Decisions but does not modify, replace, or reinterpret them.
+
+Ownership of Decision remains exclusively within the Decide domain.
+
+---
+
+# 10. Domain Boundaries
+
+## Execute Owns
+
+- Execution planning
+- Workflow coordination
+- Connector orchestration
+- Policy enforcement during execution
+- Failure handling
+- Execution monitoring
+- Execution recording
+- Publication of execution outcomes
+
+## Execute Does NOT Own
+
+- Decision selection
+- Operational reasoning
+- Knowledge management
+- Outcome evaluation
+- Organizational learning
+- Strategic optimization
