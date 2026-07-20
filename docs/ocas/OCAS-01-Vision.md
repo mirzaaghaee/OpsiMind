@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="assets/logo/opsimind-logo.svg" width="240px" alt="Opsimind Logo">
+  <img src="../../assets/logo/opsimind-logo.svg" width="240px" alt="Opsimind Logo">
 </p>
 
 # OCAS-01 --- Vision
