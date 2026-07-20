@@ -1,3 +1,8 @@
+
+<p align="center">
+  <img src="assets/logo/opsimind-logo.svg" width="240px" alt="Opsimind Logo">
+</p>
+
 # OCAS-01 --- Vision
 
 **Document:** OpsiMind Cognitive Architecture & Capability Specification
