@@ -8,8 +8,8 @@
 **Document:** OpsiMind Cognitive Architecture & Capability Specification
 (OCAS)\
 **Chapter:** 01 -- Vision\
-**Version:** 1.0-draft\
-**Status:** Draft
+**Version:** 1.0\
+**Status:** Reviewed
 
 ------------------------------------------------------------------------
 
