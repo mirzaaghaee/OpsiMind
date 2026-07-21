@@ -1,3 +1,8 @@
+
+<p align="left">
+  <img src="../../assets/logo/opsimind-logo.svg" width="340px" alt="Opsimind Logo">
+</p>
+
 # OCAS-00 --- Document Control
 
   Item             Value
@@ -65,7 +70,7 @@ Product Capability Map
       ↓
 Product Requirements Document
       ↓
-OCAS
+OCAS- OLAS
       ↓
 System Architecture Document
       ↓

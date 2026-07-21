@@ -1,3 +1,8 @@
+
+<p align="left">
+  <img src="../../assets/logo/opsimind-logo.svg" width="340px" alt="Opsimind Logo">
+</p>
+
 # OCAS-04 — Cognitive Processing Model
 
 **Document:** OpsiMind Cognitive Architecture & Capability Specification (OCAS)

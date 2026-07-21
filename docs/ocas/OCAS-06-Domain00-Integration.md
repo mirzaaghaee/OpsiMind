@@ -1,4 +1,8 @@
-# OCAS-06 — Domain 00: Integration
+<p align="left">
+  <img src="../../assets/logo/opsimind-logo.svg" width="340px" alt="Opsimind Logo">
+</p>
+
+# OCAS-06 — Domain 06: Integration
 
 | Property | Value |
 |----------|-------|

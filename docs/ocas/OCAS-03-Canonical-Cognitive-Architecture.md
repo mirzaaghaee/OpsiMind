@@ -1,3 +1,7 @@
+<p align="left">
+  <img src="../../assets/logo/opsimind-logo.svg" width="340px" alt="Opsimind Logo">
+</p>
+
 # OCAS-03 — Canonical Cognitive Architecture
 
 **Document:** OpsiMind Cognitive Architecture & Capability Specification (OCAS)  
