@@ -1,3 +1,7 @@
+<p align="left">
+  <img src="../../assets/logo/opsimind-logo.svg" width="340px" alt="Opsimind Logo">
+</p>
+
 # OCAS-17 — Evolution Model
 
 | Property | Value |
